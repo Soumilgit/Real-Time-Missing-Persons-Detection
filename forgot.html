@@ -8,20 +8,32 @@
 </head>
 <body class="flex items-center justify-center min-h-screen bg-yellow-100">
 
-  <div class="form-container">
+  <div class="form-container w-full max-w-3.2xl p-10 bg-white rounded-lg shadow-lg">
     <h2 class="text-5xl font-bold mb-6 text-center text-yellow-800">Reset Password</h2>
     <form id="forgotForm" class="space-y-4">
       <div>
         <label class="block text-yellow-700">Email *</label>
         <input type="email" id="email" name="email" required class="w-full p-2 border border-yellow-300 rounded" placeholder="Enter your email">
       </div>
-      <div>
+      <div class="relative">
         <label class="block text-yellow-700">New Password *</label>
-        <input type="password" id="newPassword" name="newPassword" required class="w-full p-2 border border-yellow-300 rounded" placeholder="Enter new password">
+        <input type="password" id="newPassword" name="newPassword" required class="w-full p-2 border border-yellow-300 bg-blue-100 rounded" placeholder="Enter new password">
+        <button type="button" id="toggleNewPassword" class="absolute inset-y-0 right-3 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path id="newEyeIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path id="newEyeOutline" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </button>
       </div>
-      <div>
+      <div class="relative">
         <label class="block text-yellow-700">Confirm New Password *</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required class="w-full p-2 border border-yellow-300 rounded" placeholder="Confirm new password">
+        <input type="password" id="confirmPassword" name="confirmPassword" required class="w-full p-2 border border-yellow-300 bg-blue-100 rounded" placeholder="Confirm new password">
+        <button type="button" id="toggleConfirmPassword" class="absolute inset-y-0 right-3 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path id="confirmEyeIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path id="confirmEyeOutline" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </button>
       </div>
       <button type="submit" class="w-full bg-yellow-600 text-white p-2 rounded hover:bg-yellow-700">Reset Password</button>
     </form>
@@ -37,10 +49,48 @@
       return regex.test(password);
     }
 
+    const newPasswordInput = document.getElementById('newPassword');
+    const toggleNewPassword = document.getElementById('toggleNewPassword');
+    const newEyeIcon = document.getElementById('newEyeIcon');
+    const newEyeOutline = document.getElementById('newEyeOutline');
+    let newPasswordVisible = false;
+
+    toggleNewPassword.addEventListener('click', function () {
+      newPasswordVisible = !newPasswordVisible;
+      newPasswordInput.type = newPasswordVisible ? 'text' : 'password';
+
+      if (newPasswordVisible) {
+        newEyeIcon.setAttribute("d", "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.967 9.967 0 013.356-4.472m3.234-2.157A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.962 9.962 0 01-1.357 2.572");
+        newEyeOutline.setAttribute("d", "M3 3l18 18");
+      } else {
+        newEyeIcon.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z");
+        newEyeOutline.setAttribute("d", "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z");
+      }
+    });
+
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const confirmEyeIcon = document.getElementById('confirmEyeIcon');
+    const confirmEyeOutline = document.getElementById('confirmEyeOutline');
+    let confirmPasswordVisible = false;
+
+    toggleConfirmPassword.addEventListener('click', function () {
+      confirmPasswordVisible = !confirmPasswordVisible;
+      confirmPasswordInput.type = confirmPasswordVisible ? 'text' : 'password';
+
+      if (confirmPasswordVisible) {
+        confirmEyeIcon.setAttribute("d", "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.967 9.967 0 013.356-4.472m3.234-2.157A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.962 9.962 0 01-1.357 2.572");
+        confirmEyeOutline.setAttribute("d", "M3 3l18 18");
+      } else {
+        confirmEyeIcon.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z");
+        confirmEyeOutline.setAttribute("d", "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z");
+      }
+    });
+
     document.getElementById('forgotForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const newPassword = document.getElementById('newPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
+      const newPassword = newPasswordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
 
       if (!validatePassword(newPassword)) {
         alert('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.');
