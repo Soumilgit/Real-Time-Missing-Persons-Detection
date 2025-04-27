@@ -15,3 +15,8 @@ let currentSlide = 0;
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       showSlide();
     }
+function logout() {
+        // Clear session (example: you can expand later if using auth)
+        localStorage.removeItem('loggedIn');
+        window.location.href = 'login.html'; // Redirect to login page
+      }
