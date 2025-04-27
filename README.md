@@ -40,7 +40,6 @@ This tool works for:
 - **Amazon Rekognition**: Face recognition to compare the uploaded image with the missing persons' dataset.
 - **AWS API Gateway**: For creating APIs to connect frontend with backend.
 - **Amazon S3**: Store images and JSON feedback securely.
-- **Formspree**: No-code backend service, records login, signup, forgot password & feedback form responses.
 
 ### Hosting:
 - **Static Website Hosting on S3** or deploy via **Vercel/Netlify** for easy CI/CD.
