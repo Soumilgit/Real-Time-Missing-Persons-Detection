@@ -10,7 +10,12 @@ The goal is to automate the face-matching process, making it faster and more acc
 - **Real-Time Face Matching**: Upload a photo or CCTV frame and get instant results by matching the face to the missing persons' database.
 - **Fast and Accurate**: Eliminates manual search and speeds up the process with **Amazon Rekognition**.
 - **Scalable Architecture**: Serverless with AWS services, which makes it efficient and easy to scale as the database grows.
-  
+
+## AWS Rekognition Image for Documentation – Terminal Output for One Dataset Entry
+![Screenshot 2025-04-27 040306](https://github.com/user-attachments/assets/d508e68a-a547-4a82-93c1-15e9cb816296)
+![Screenshot 2025-04-27 040316](https://github.com/user-attachments/assets/68fbaa4e-c3b0-4b02-a894-7898b0239f6d)
+
+
 ## Problem
 
 If a civilian spots someone who might be missing:
@@ -80,10 +85,6 @@ By speeding up the process of identifying missing persons, this project **helps 
 - **Amazon Rekognition**: Uses AI to match faces to the missing persons' database.
 - **API Gateway**: Connects frontend to backend through REST APIs.
 - **Amazon S3**: Stores uploaded images and feedback securely.
-
-## AWS Rekognition Image for Documentation – Terminal Output for One Dataset Entry
-![Screenshot 2025-04-27 040306](https://github.com/user-attachments/assets/84573a4e-d773-4e65-b85a-2e3c48c90257)
-![Screenshot 2025-04-27 040316](https://github.com/user-attachments/assets/74b9eac4-0132-4ee5-bb5d-758835765ad7)
 
 ## Installation and Setup
 
