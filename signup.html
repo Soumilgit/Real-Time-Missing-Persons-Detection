@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-blue-100">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-800">Signup</h2>
+    <form id="signupForm" action="https://formspree.io/f/xvgagvkn" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-blue-700">Name</label>
+        <input type="text" id="name" name="name" required class="w-full p-2 border border-blue-300 rounded">
+      </div>
+      <div>
+        <label class="block text-blue-700">Email</label>
+        <input type="email" id="email" name="email" required class="w-full p-2 border border-blue-300 rounded">
+      </div>
+      <div>
+        <label class="block text-blue-700">Password</label>
+        <input type="password" id="password" name="password" required class="w-full p-2 border border-blue-300 rounded">
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Signup</button>
+    </form>
+
+    <p class="text-center mt-4 text-blue-700">
+      Already have an account? <a href="login.html" class="text-blue-900 underline">Login</a>
+    </p>
+  </div>
+
+  <script>
+    // Password validation function
+    function validatePassword(password) {
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&_])[A-Za-z\d@$!%*#?&_]{8,}$/;
+      return regex.test(password);
+    }
+
+    // Handle form submission
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+
+      // Validate the password
+      if (!validatePassword(password)) {
+        alert('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.');
+        return;
+      }
+
+      // Save the entered password in localStorage
+      localStorage.setItem('userPassword', password);
+      
+      // Redirect to the login page after signup
+      window.location.href = 'login.html';
+    });
+  </script>
+
+</body>
+</html>

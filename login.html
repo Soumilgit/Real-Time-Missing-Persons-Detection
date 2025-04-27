@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-green-100">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-800">Login</h2>
+    <form id="loginForm" action="https://formspree.io/f/xkgrgpje" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-green-700">Email</label>
+        <input type="email" id="email" name="email" required class="w-full p-2 border border-green-300 rounded">
+      </div>
+      <div>
+        <label class="block text-green-700">Password</label>
+        <input type="password" id="password" name="password" required class="w-full p-2 border border-green-300 rounded">
+      </div>
+      <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Login</button>
+    </form>
+
+    <div class="text-center mt-4">
+      <a href="forgot.html" class="text-green-700 underline">Forgot Password?</a>
+    </div>
+
+    <p class="text-center mt-4 text-green-700">
+      Don't have an account? <a href="signup.html" class="text-green-900 underline">Signup</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Retrieve the password from localStorage
+      const storedPassword = localStorage.getItem('userPassword');
+
+      // Get the password entered during login
+      const enteredPassword = document.getElementById('password').value;
+
+      if (enteredPassword === storedPassword) {
+        // Password matches, proceed to the homepage
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'index.html';
+      } else {
+        // Incorrect password, show an error
+        alert('Incorrect Password! Please try again.');
+      }
+    });
+  </script>
+
+</body>
+</html>

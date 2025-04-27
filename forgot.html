@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forgot Password</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-yellow-100">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-yellow-800">Reset Password</h2>
+    <form id="forgotForm" action="https://formspree.io/f/xwpopwld" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-yellow-700">New Password</label>
+        <input type="password" id="newPassword" name="newPassword" required class="w-full p-2 border border-yellow-300 rounded" placeholder="Enter new password">
+      </div>
+      <button type="submit" class="w-full bg-yellow-600 text-white p-2 rounded hover:bg-yellow-700">Reset Password</button>
+    </form>
+
+    <p class="text-center mt-4 text-yellow-700">
+      Remembered? <a href="login.html" class="text-yellow-900 underline">Back to Login</a>
+    </p>
+  </div>
+
+  <script>
+    function validatePassword(password) {
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      return regex.test(password);
+    }
+
+    document.getElementById('forgotForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newPassword = document.getElementById('newPassword').value;
+
+      if (!validatePassword(newPassword)) {
+        alert('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.');
+        return;
+      }
+
+      // Save new password to localStorage (for demo purposes)
+      localStorage.setItem('userPassword', newPassword);
+      alert('Password reset successful! Please login.');
+      window.location.href = 'login.html';
+    });
+  </script>
+
+</body>
+</html>
