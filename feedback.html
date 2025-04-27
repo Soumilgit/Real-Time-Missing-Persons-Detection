@@ -66,24 +66,58 @@
   <section class="flex-1 flex flex-col items-center justify-center p-8">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
       <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">We Value Your Feedback</h1>
-      <form action="https://formspree.io/f/mnndnlpw" method="POST" class="space-y-4">
+      <form id="feedbackForm" class="space-y-4">
         <input type="text" id="name" name="name" placeholder="Your Name" required class="border p-3 rounded w-full">
         <input type="email" id="email" name="email" placeholder="Your Email" required class="border p-3 rounded w-full">
         <textarea id="message" name="message" placeholder="Your Message" required class="border p-3 rounded w-full h-32"></textarea>
-        <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded w-full">
+        <button id="submitButton" type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded w-full">
           Submit Feedback
         </button>
       </form>
-      <div id="confirmation" class="mt-6 text-green-700 font-bold text-center hidden">Thank you for your feedback!</div>
     </div>
   </section>
 
   <script>
-    function submitForm(event) {
-      event.preventDefault();
-      document.getElementById('confirmation').classList.remove('hidden');
-    }
-  </script>
+    const form = document.getElementById('feedbackForm');
+    const submitButton = document.getElementById('submitButton');
 
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      // Gather form data
+      const formData = new FormData(form);
+
+      try {
+        // Send form data using Fetch API to Formspree
+        const response = await fetch('https://formspree.io/f/mnndnlpw', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        });
+
+        if (response.ok) {
+          // Change button color and text
+          submitButton.classList.remove('bg-yellow-600', 'hover:bg-yellow-700');
+          submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
+          submitButton.textContent = 'Submitted';
+
+          // Reset the button back to its original state after 3 seconds
+          setTimeout(() => {
+            submitButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+            submitButton.classList.add('bg-yellow-600', 'hover:bg-yellow-700');
+            submitButton.textContent = 'Submit Feedback';
+          }, 3000);
+
+          // Clear form fields
+          form.reset();
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error!', error.message);
+        alert('An error occurred. Please try again.');
+      }
+    });
+  </script>
 </body>
 </html>
