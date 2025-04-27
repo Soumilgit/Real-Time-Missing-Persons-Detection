@@ -14,10 +14,11 @@
       border-radius: 1rem;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       max-height: 80vh; 
-      min-height: 600px; 
+      min-height: 700px; 
       display: flex;
       flex-direction: column;
       justify-content: center;
+      font-size: 1.8rem;
       margin: 0 auto; 
     }
 
@@ -26,13 +27,14 @@
       .form-container {
         width: 90%; 
         max-width: 100%; 
-        max-height: none; 
-        min-height: 80vh; 
+        max-height: 1200px; 
+        min-height: 800px; 
         padding: 2rem 1.5rem;
+        font-size: 3.2 rem;
       }
 
       input, textarea {
-        font-size: 1.2rem; 
+        font-size: 6.2rem; 
         padding: 1rem;
       }
     }
@@ -41,7 +43,7 @@
 <body class="flex items-center justify-center min-h-screen bg-green-100">
 
   <div class="form-container">
-    <h2 class="text-2xl font-bold mb-6 text-center text-green-800">Login</h2>
+    <h2 class="text-5xl font-bold mb-6 text-center text-green-800">Login</h2>
     <form id="loginForm" action="#" method="POST" class="space-y-4">
       <div> <label class="block text-green-700">Name</label> <input type="text" id="name" name="name" class="w-full p-2 border border-green-300 rounded"> </div>
       <div>
