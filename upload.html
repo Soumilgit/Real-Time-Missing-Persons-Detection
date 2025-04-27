@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upload Image | Missing Person Finder</title>
+  <meta name="description" content="Upload a missing person's photo and search through our AI-driven database.">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-purple-900 to-purple-400 min-h-screen flex flex-col">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow p-4 flex justify-between items-center font-semibold text-purple-800">
+    <a href="index.html" class="text-xl">Missing Person Finder</a>
+
+    <!-- Hamburger Icon for mobile -->
+    <div class="block lg:hidden">
+      <button id="hamburger" class="text-purple-800 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navbar Links (hidden on mobile) -->
+    <div id="navbar" class="hidden lg:flex gap-10">
+      <a href="index.html" class="hover:text-purple-600">Home</a>
+      <a href="upload.html" class="hover:text-purple-600">Upload</a>
+      <a href="feedback.html" class="hover:text-purple-600">Feedback</a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-white bg-opacity-90 flex justify-center items-center z-50 hidden">
+    <div class="flex flex-col items-center gap-4">
+      <a href="index.html" class="text-xl text-purple-800">Home</a>
+      <a href="upload.html" class="text-xl text-purple-800">Upload</a>
+      <a href="feedback.html" class="text-xl text-purple-800">Feedback</a>
+      <button id="closeMenu" class="text-xl text-purple-800">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking 'Close'
+    document.getElementById('closeMenu').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+  </script>
+
+  <!-- Main Content -->
+  <div class="flex flex-col items-center justify-center flex-1 p-8">
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-lg w-full text-center">
+      <h1 class="text-2xl font-bold text-gray-800 mb-4">Upload Photo for Analysis</h1>
+      <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" class="border p-2 rounded w-full mb-4">
+      <img id="preview" class="hidden rounded-lg mb-4 w-full" />
+      <button onclick="analyzeImage()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded">
+        Analyze Image
+      </button>
+      <div id="result" class="mt-4 text-gray-700"></div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+  </script>
+
+</body>
+</html>

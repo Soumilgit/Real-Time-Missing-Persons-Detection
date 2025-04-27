@@ -1,0 +1,31 @@
+
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem; 
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      object-fit: cover; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (min-width: 768px) {
+      .image-container {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem; 
+      }
+
+      .image-container img {
+        width: 30%;
+        height: auto; 
+      }
+    }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Missing Person Finder | Home</title>
+  <meta name="description" content="AI-based Missing Person Identification | Upload a photo, find missing individuals, and reunite families.">
+  <link rel="icon" href="images/logo.jpg" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="bg-gradient-to-b from-blue-900 to-blue-400 min-h-screen flex flex-col">
+
+  <nav class="bg-white shadow p-4 flex justify-between items-center font-semibold text-blue-800">
+    <a href="index.html" class="text-xl">Missing Person Finder</a>
+
+    <div class="block lg:hidden">
+      <button id="hamburger" class="text-blue-800 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="navbar" class="hidden lg:flex gap-10">
+      <a href="index.html" class="hover:text-blue-600">Home</a>
+      <a href="upload.html" class="hover:text-blue-600">Upload</a>
+      <a href="feedback.html" class="hover:text-blue-600">Feedback</a>
+    </div>
+  </nav>
+
+  <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-white bg-opacity-90 flex justify-center items-center z-50 hidden">
+    <div class="flex flex-col items-center gap-4">
+      <a href="index.html" class="text-xl text-blue-800">Home</a>
+      <a href="upload.html" class="text-xl text-blue-800">Upload</a>
+      <a href="feedback.html" class="text-xl text-blue-800">Feedback</a>
+      <button id="closeMenu" class="text-xl text-blue-800">Close</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    document.getElementById('closeMenu').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+  </script>
+
+  <section class="flex flex-col items-center justify-center flex-1 text-center p-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">AI-Powered Missing Person Identifier</h1>
+    <p class="text-lg md:text-xl text-blue-100 max-w-2xl mb-8">
+      Reuniting families with the power of technology. Upload a photo, search our secure database, and help make a difference.
+    </p>
+    <a href="upload.html" class="bg-white text-blue-700 font-semibold py-3 px-6 rounded-full hover:bg-gray-200 transition">
+      Start Searching
+    </a>
+  </section>
+
+  <section class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 text-white py-12 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">India's Silent Crisis: Missing Persons</h2>
+      <p class="text-lg md:text-xl mb-6 leading-relaxed">
+        Every year, hundreds of thousands vanish across India — daughters, sons, friends. Over 2 million cases were reported between 2016 and 2021, with women disproportionately affected.
+      </p>
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-8">
+        <img src="images/missing-woman.jpg" alt="Missing Woman" class="w-full md:w-1/3 h-60 object-cover rounded-lg shadow-lg">
+        <img src="images/missing-child.jpg" alt="Missing Child" class="w-full md:w-1/3 h-60 object-cover rounded-lg shadow-lg">
+        <img src="images/searching-family.jpg" alt="Family Searching" class="w-full md:w-1/3 h-60 object-cover rounded-lg shadow-lg">
+      </div>
+      <p class="text-md md:text-lg mb-4">
+        Despite relentless tracing efforts, many remain lost. Trafficking concerns, gender disparities, and lack of tech monitoring worsen the crisis.
+      </p>
+      <p class="text-md md:text-lg mb-6">
+        Authorities have begun adopting AI and digital solutions to fight back. Yet, challenges remain — especially in areas like Maharashtra, where our current dataset focuses.
+      </p>
+      <p class="italic text-sm text-blue-100">
+        *Note: The showcased data currently includes missing persons exclusively from Maharashtra.*
+      </p>
+    </div>
+  </section>
+
+  <footer class="text-center text-black-200 pb-4 mt-6">
+    © 2025 Missing Person Finder. All rights reserved.
+  </footer>
+
+</body>
+</html>

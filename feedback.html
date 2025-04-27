@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feedback | Missing Person Finder</title>
+  <meta name="description" content="Share your feedback to help us improve and reunite more families.">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-yellow-900 to-yellow-400 min-h-screen flex flex-col">
+  
+  <!-- Navigation -->
+  <nav class="bg-white shadow p-4 flex justify-between items-center font-semibold text-yellow-800">
+    <a href="index.html" class="text-xl">Missing Person Finder</a>
+
+    <!-- Hamburger Icon for mobile -->
+    <div class="block lg:hidden">
+      <button id="hamburger" class="text-yellow-800 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navbar Links (hidden on mobile) -->
+    <div id="navbar" class="hidden lg:flex gap-10">
+      <a href="index.html" class="hover:text-yellow-600">Home</a>
+      <a href="upload.html" class="hover:text-yellow-600">Upload</a>
+      <a href="feedback.html" class="hover:text-yellow-600">Feedback</a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-white bg-opacity-90 flex justify-center items-center z-50 hidden">
+    <div class="flex flex-col items-center gap-4">
+      <a href="index.html" class="text-xl text-yellow-800">Home</a>
+      <a href="upload.html" class="text-xl text-yellow-800">Upload</a>
+      <a href="feedback.html" class="text-xl text-yellow-800">Feedback</a>
+      <button id="closeMenu" class="text-xl text-yellow-800">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking 'Close'
+    document.getElementById('closeMenu').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+  </script>
+
+  <!-- Feedback Form Section -->
+  <section class="flex-1 flex flex-col items-center justify-center p-8">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
+      <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">We Value Your Feedback</h1>
+      <form action="https://formspree.io/f/mzzrzakb" method="POST" class="space-y-4">
+        <input type="text" id="name" name="name" placeholder="Your Name" required class="border p-3 rounded w-full">
+        <input type="email" id="email" name="email" placeholder="Your Email" required class="border p-3 rounded w-full">
+        <textarea id="message" name="message" placeholder="Your Message" required class="border p-3 rounded w-full h-32"></textarea>
+        <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded w-full">
+          Submit Feedback
+        </button>
+      </form>
+      <div id="confirmation" class="mt-6 text-green-700 font-bold text-center hidden">Thank you for your feedback!</div>
+    </div>
+  </section>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+      document.getElementById('confirmation').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
