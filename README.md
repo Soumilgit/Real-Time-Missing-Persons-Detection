@@ -53,9 +53,10 @@ This tool works for:
 3. **Takes time** and can result in missed opportunities.
 
 ### With Our Tool:
-1. **Upload a photo** or **CCTV frame**.
-2. **Instantly matches** faces with the missing persons' database. Currently, our custom dataset consists of **20+** entries only; planning to increase it later on. 
-3. **Quick and accurate** results, helping authorities move faster.
+1. A simple login/signup form to get started with, includes appropriate password reg-ex checking & forgot password options, alongwith an error file link redirection incase an error occurs during login.
+2. **Upload a photo** or **CCTV frame**.
+3. **Instantly matches** faces with the missing persons' database. Currently, our custom dataset consists of **20+** entries only; planning to increase it later on. 
+4. **Quick and accurate** results, helping authorities move faster.
 
 ## Benefits
 
