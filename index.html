@@ -28,15 +28,18 @@
       <a href="upload.html" class="hover:text-blue-600">Upload</a>
       <a href="success.html" class="hover:text-blue-600">Dataset Entries</a>
       <a href="feedback.html" class="hover:text-blue-600">Feedback</a>
+      <button onclick="logout()" class="hover:text-blue-600">Logout</button>
     </div>
   </nav>
 
+  <!-- Mobile Menu -->
   <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-white bg-opacity-90 flex justify-center items-center z-50 hidden">
     <div class="flex flex-col items-center gap-4">
       <a href="index.html" class="text-xl text-blue-800">Home</a>
       <a href="upload.html" class="text-xl text-blue-800">Upload</a>
-      <a href="success.html" class="hover:text-blue-600">Dataset Entries</a>
+      <a href="success.html" class="text-xl text-blue-800">Dataset Entries</a>
       <a href="feedback.html" class="text-xl text-blue-800">Feedback</a>
+      <button onclick="logout()" class="text-xl text-blue-800">Logout</button>
       <button id="closeMenu" class="text-xl text-blue-800">Close</button>
     </div>
   </div>
@@ -49,6 +52,12 @@
     document.getElementById('closeMenu').addEventListener('click', function() {
       document.getElementById('mobileMenu').classList.add('hidden');
     });
+
+    function logout() {
+      // Clear session (example: you can expand later if using auth)
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html'; // Redirect to login page
+    }
   </script>
 
   <section class="flex flex-col items-center justify-center flex-1 text-center p-8">
