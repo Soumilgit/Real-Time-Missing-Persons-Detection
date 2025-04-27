@@ -5,23 +5,65 @@
   <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="./styles.css">
-
 </head>
-<body class="flex items-center justify-center min-h-screen bg-green-100">
 
-  <div class="form-container">
+<body class="flex items-center justify-center min-h-screen bg-green-100">
+  <div class="form-container w-full max-w-3.2xl p-10 bg-white rounded-lg shadow-lg">
     <h2 class="text-5xl font-bold mb-6 text-center text-green-800">Login</h2>
+
     <form id="loginForm" action="#" method="POST" class="space-y-4">
-      <div> <label class="block text-green-700">Name</label> <input type="text" id="name" name="name" class="w-full p-2 border border-green-300 rounded"> </div>
+      <div>
+        <label class="block text-green-700">Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="w-full p-2 border border-green-300 rounded"
+        >
+      </div>
+
       <div>
         <label class="block text-green-700">Email *</label>
-        <input type="email" id="email" name="email" required class="w-full p-2 border border-green-300 rounded">
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          required 
+          class="w-full p-2 border border-green-300 rounded"
+        >
       </div>
-      <div>
+
+      <div class="relative mt-4">
         <label class="block text-green-700">Password *</label>
-        <input type="password" id="password" name="password" required class="w-full p-2 border border-green-300 rounded">
+        
+        <div class="relative">
+          <input 
+            type="password" 
+            id="password"
+            name="password" 
+            required
+            class="w-full p-3 pr-12 border border-green-300 bg-blue-100 rounded"
+          />
+          
+          <button 
+            type="button"
+            id="togglePassword"
+            class="absolute inset-y-0 right-3 flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-5 w-5 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path id="eyeIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path id="eyeOutline" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Login</button>
+
+      <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
+        Login
+      </button>
     </form>
 
     <div class="text-center mt-4">
@@ -29,21 +71,43 @@
     </div>
 
     <p class="text-center mt-4 text-green-700">
-      Don't have an account? <a href="signup.html" class="text-green-900 underline">Signup</a>
+      Don't have an account? 
+      <a href="signup.html" class="text-green-900 underline">Signup</a>
     </p>
   </div>
 
   <script>
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const eyeOutline = document.getElementById('eyeOutline');
+    let passwordVisible = false;
+
+    togglePassword.addEventListener('click', function () {
+      passwordVisible = !passwordVisible;
+      passwordInput.type = passwordVisible ? 'text' : 'password';
+
+      if (passwordVisible) {
+        // Eye off
+        eyeIcon.setAttribute("d", "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.967 9.967 0 013.356-4.472m3.234-2.157A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.962 9.962 0 01-1.357 2.572");
+        eyeOutline.setAttribute("d", "M3 3l18 18");
+      } else {
+        // Eye normal
+        eyeIcon.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z");
+        eyeOutline.setAttribute("d", "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z");
+      }
+    });
+
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-  
+
       const storedPassword = localStorage.getItem('userPassword');
-      const enteredPassword = document.getElementById('password').value;
-  
+      const enteredPassword = passwordInput.value;
+
       if (enteredPassword === storedPassword) {
         localStorage.setItem('loggedIn', 'true');
         alert('Login successful!');
-        window.location.href = 'index.html'; // Redirect to index.html
+        window.location.href = 'index.html'; 
       } else {
         alert('Incorrect Password! Please try again.');
       }
