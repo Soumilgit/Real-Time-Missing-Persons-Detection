@@ -43,9 +43,13 @@ This tool works for:
 ### Backend:
 - **Python** for backend functions (Lambda functions)
 - **Amazon Rekognition**: Face recognition to compare the uploaded image with the missing persons' dataset.
-- **AWS API Gateway**: For creating APIs to connect frontend with backend.
+- **AWS API Gateway**: For creating REST APIs to connect frontend with backend.
 - **Amazon S3**: Store images and JSON feedback securely.
 - **Formspree**: Stores the user data from Feedback form.
+
+### Testing 
+- **AWS Lambda**: Created roles, attached permissions, then created a function, saved packaged Python code and finally tested alongside it a JSON containing an image's base64 string using a created test event.
+- **Postman**: Tested the deployed AWS API with the earlier JSON format containing the same base64 string from Lambda.
 
 ### Hosting:
 - **Static Website Hosting on S3** or deploy via **Vercel/Netlify** for easy CI/CD.
