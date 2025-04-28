@@ -48,7 +48,7 @@ This tool works for:
 - **Formspree**: Stores the user data from Feedback form.
 
 ### Testing 
-- **AWS Lambda**: Created roles, attached permissions, then created a function, saved packaged Python code and finally tested alongside it a JSON containing an image's base64 string using a created test event.
+- **AWS Lambda**: Created roles, attached permissions, then created a function, saved packaged Python code and finally tested alongside it a JSON containing the base64 string of an image from my dataset, using a created test event.
 - **Postman**: Tested the deployed AWS API with the earlier JSON format containing the same base64 string from Lambda.
 
 ### Hosting:
