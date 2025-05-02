@@ -9,11 +9,9 @@
 </head>
 <body class="bg-gradient-to-b from-purple-900 to-purple-400 min-h-screen flex flex-col">
 
-  <!-- Navigation -->
+  <!-- Navigation (unchanged) -->
   <nav class="bg-white shadow p-4 flex justify-between items-center font-semibold text-purple-800">
     <a href="index.html" class="text-xl">Missing Person Finder</a>
-
-    <!-- Hamburger Icon for mobile -->
     <div class="block lg:hidden">
       <button id="hamburger" class="text-purple-800 focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -21,8 +19,6 @@
         </svg>
       </button>
     </div>
-
-    <!-- Navbar Links (hidden on mobile) -->
     <div id="navbar" class="hidden lg:flex gap-10">
       <a href="index.html" class="hover:text-purple-600">Home</a>
       <a href="upload.html" class="hover:text-purple-600">Upload</a>
@@ -32,7 +28,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu (hidden by default) -->
+  <!-- Mobile Menu (unchanged) -->
   <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-white bg-opacity-90 flex justify-center items-center z-50 hidden">
     <div class="flex flex-col items-center gap-4">
       <a href="index.html" class="text-xl text-purple-800">Home</a>
@@ -44,39 +40,87 @@
     </div>
   </div>
 
-  <script>
-    // Toggle mobile menu visibility
-    document.getElementById('hamburger').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
-    });
-
-    // Close mobile menu when clicking 'Close'
-    document.getElementById('closeMenu').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.add('hidden');
-    });
-
-    function logout() {
-      // Clear session (example: you can expand later if using auth)
-      localStorage.removeItem('loggedIn');
-      window.location.href = 'login.html'; // Redirect to login page
-    }
-  </script>
-
   <!-- Main Content -->
   <div class="flex flex-col items-center justify-center flex-1 p-8">
-    <div class="bg-white p-8 rounded-xl shadow-lg max-w-lg w-full text-center">
-      <h1 class="text-2xl font-bold text-gray-800 mb-4">Upload Photo for Analysis</h1>
-      <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" class="border p-2 rounded w-full mb-4">
-      <img id="preview" class="hidden rounded-lg mb-4 w-full" />
-      <button onclick="analyzeImage()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded">
-        Analyze Image
-      </button>
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-lg w-full">
+      <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">Upload Photo for Analysis</h1>
+      
+      <form id="uploadForm" class="space-y-4">
+        <!-- Image Upload (now separate from form submission) -->
+        <div>
+          <label for="imageInput" class="block text-sm font-medium text-gray-700 mb-1">Upload Image *</label>
+          <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" 
+                 class="border p-2 rounded w-full">
+          <div id="imageError" class="text-red-500 text-sm mt-1 hidden">Please upload a valid image file</div>
+          <img id="preview" class="hidden rounded-lg mt-2 w-full max-h-64 object-contain" />
+        </div>
+        
+        <!-- Reporter Information -->
+        <div>
+          <label for="reporterName" class="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
+          <input type="text" id="reporterName" name="reporterName" 
+                 class="border p-2 rounded w-full" required minlength="2">
+          <div id="nameError" class="text-red-500 text-sm mt-1 hidden">Please enter your full name</div>
+        </div>
+        
+        <div>
+          <label for="reporterEmail" class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+          <input type="email" id="reporterEmail" name="reporterEmail" 
+                 class="border p-2 rounded w-full">
+          <div id="emailError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email address</div>
+        </div>
+        
+        <div>
+          <label for="reporterPhone" class="block text-sm font-medium text-gray-700 mb-1">Your Phone Number *</label>
+          <input type="tel" id="reporterPhone" name="reporterPhone" 
+                 class="border p-2 rounded w-full"
+                 pattern="9[0-9]{9}" required>
+          <div id="phoneError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid phone number (10 digits starting with 9)</div>
+        </div>        
+        
+        <!-- Location Information -->
+        <div>
+          <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where was this person seen? (Location) *</label>
+          <input type="text" id="location" name="location" 
+                 class="border p-2 rounded w-full" required minlength="5">
+          <div id="locationError" class="text-red-500 text-sm mt-1 hidden">Please provide a valid location</div>
+        </div>
+        
+        <div>
+          <label for="dateSeen" class="block text-sm font-medium text-gray-700 mb-1">When was this person seen? *</label>
+          <input type="datetime-local" id="dateSeen" name="dateSeen" 
+                 class="border p-2 rounded w-full" required>
+          <div id="dateError" class="text-red-500 text-sm mt-1 hidden">Please select a valid date and time</div>
+        </div>
+        
+        <!-- Additional Details -->
+        <div>
+          <label for="additionalDetails" class="block text-sm font-medium text-gray-700 mb-1">Additional Details</label>
+          <textarea id="additionalDetails" name="additionalDetails" rows="3" 
+                    class="border p-2 rounded w-full" maxlength="500"></textarea>
+          <div class="text-xs text-gray-500 mt-1">Max 500 characters</div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="flex justify-between items-center">
+          <button type="button" onclick="analyzeImage()" 
+                  class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded">
+            Analyze Image
+          </button>
+          
+          <button type="submit" id="submitBtn"
+                  class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
+            Submit Report
+          </button>
+        </div>
+      </form>
+      
       <div id="result" class="mt-4 text-gray-700"></div>
     </div>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="./script.js">
+    
   </script>
-
 </body>
 </html>
