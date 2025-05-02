@@ -21,7 +21,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 ![Screenshot 2025-04-27 040306](https://github.com/user-attachments/assets/9ed439e2-eff7-4957-8cc1-b997add07c0c)
 ![Screenshot 2025-04-27 040316](https://github.com/user-attachments/assets/71469c60-ced0-4bac-a2b9-61e2603cd2eb)
 
-
+---
 
 ##  Problem
 
