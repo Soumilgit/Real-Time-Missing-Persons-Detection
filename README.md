@@ -95,7 +95,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 
 - **AWS Lambda** tested with base64 image payloads and test events.
 - **Postman** used to verify deployed API endpoints with JSON inputs.
-- 📹 **Video Demo** available showing the updated upload form in action : https://youtu.be/kIx9YpGx90E .
+- **Video Demo** available showing the updated upload form in action : https://youtu.be/kIx9YpGx90E .
 
 ---
 
