@@ -1,106 +1,109 @@
-## Real-Time-Missing-Persons-Detection
+# Real-Time Missing Persons Detection
 
 ## Overview
 
-This **serverless** project uses **Amazon Rekognition** for real-time missing person detection. It lets users upload images (photos or CCTV frames) and matches faces with a database of missing persons. 
+This **serverless** project uses **Amazon Rekognition** for real-time missing person detection. Users can upload images (photos or CCTV frames),fill a few form details and the system matches them with a database of missing persons.
 
-The goal is to automate the face-matching process, making it faster and more accurate, so authorities can act quickly. Think of it as upgrading from manually searching through records to instantly identifying a match.
+The goal is to **automate face-matching**, reducing delays and human error, enabling fast action by citizens and authorities.
 
-### Key Features:
-- **Real-Time Face Matching**: Upload a photo or CCTV frame and get instant results by matching the face to the missing persons' database.
-- **Fast and Accurate**: Eliminates manual search and speeds up the process with **Amazon Rekognition**.
-- **Scalable Architecture**: Serverless with AWS services, which makes it efficient and easy to scale as the database grows.
+---
 
-## AWS Rekognition Image for Documentation – Terminal Output for One Dataset Entry
-![Screenshot 2025-04-27 040306](https://github.com/user-attachments/assets/d508e68a-a547-4a82-93c1-15e9cb816296)
-![Screenshot 2025-04-27 040316](https://github.com/user-attachments/assets/68fbaa4e-c3b0-4b02-a894-7898b0239f6d)
+## Key Features
 
+- **Real-Time Face Matching**: Upload an image or CCTV snapshot to get instant results via **Amazon Rekognition**.
+- **Enhanced Upload Form** *(NEW)*: Collects detailed information like time, location, and description to aid in analysis.
+- **Fast & Accurate**: Eliminates manual search with AI-powered facial comparison.
+- **Serverless Architecture**: Scales seamlessly using **AWS Lambda**, **API Gateway**, and **S3**.
 
-## Problem
+---
 
-If a civilian spots someone who might be missing:
-1. **Manual Search**: They need to open a website, filter by date, district, etc., and scroll through hundreds of images.
-2. **Time-Consuming**: It’s slow, error-prone, and relies on visual identification.
+##  Problem
 
-### How Our Project Solves It:
-With this tool, a civilian can simply:
-1. **Upload an image**: Take a picture or use a CCTV frame.
-2. **Instantly match**: The system automatically compares the face to the missing persons' database.
-3. **Quick and Accurate**: No more waiting or manual searching — just a fast match.
+### Manual Process:
+- Civilians browse websites and manually compare faces.
+- Time-consuming, error-prone, and inefficient.
 
-## Real-World Use Case
+### Our Solution:
+- Upload a single image, and fill few form details.
+- Automatically match against missing persons.
+- Instant, accurate, and user-friendly, also stores user data via Formspree.
 
-This tool works for:
-1. **Citizens**: They can upload photos or frames and get immediate results.
-2. **Police Departments**: Internally use the system to check faces against the database on the go.
+---
 
-## Technologies Used
+## 🆕 What’s New?
+
+### Upload Form Enhancements:
+- Added fields: **Location**, **Date & time**, **Name**, **Email**, **Phone**, **Additional Details**, etc.
+- Data stored securely via **Formspree** for later analysis by investigators.
+
+---
+
+## 💼 Real-World Use Cases
+
+- **Civilians**: Upload images using mobile or camera footage.
+- **Law Enforcement**: Cross-check faces with missing person records in real-time.
+
+---
+
+## 🛠️ Technologies Used
 
 ### Frontend:
 - **HTML5**, **CSS3**, **Vanilla JS**
-- **TailwindCSS**: Helps in building a responsive, modern UI quickly.
+- **TailwindCSS** for fast, responsive UI design
 
 ### Backend:
-- **Python** for backend functions (Lambda functions)
-- **Amazon Rekognition**: Face recognition to compare the uploaded image with the missing persons' dataset.
-- **AWS API Gateway**: For creating REST APIs to connect frontend with backend.
-- **Amazon S3**: Store images and JSON feedback securely.
-- **Formspree**: Stores the user data from Feedback form.
+- **AWS Lambda (Python)** for processing logic
+- **Amazon Rekognition** for facial matching
+- **Amazon API Gateway** for REST API endpoints
+- **Amazon S3** for storing images and results
+- **Formspree** for handling form submissions with added fields
 
-### Testing 
-- **AWS Lambda**: Created roles, attached permissions, then created a function, saved packaged Python code and finally tested alongside it a JSON containing the base64 string of an image from my dataset, using a created test event.
-- **Postman**: Tested the deployed AWS API with the earlier JSON format containing the same base64 string from Lambda.
-
-### Hosting:
-- **Static Website Hosting on S3** or deploy via **Vercel/Netlify** for easy CI/CD.
-
-## Project Flow
-
-### Manual Search:
-1. **Open the website**, filter by date, district, etc.
-2. **Scroll through hundreds of entries** hoping to spot a match.
-3. **Takes time** and can result in missed opportunities.
-
-### With Our Tool:
-1. Simple **login** & **signup** forms with password validation, **forgot password** option, and error redirection on failure.
-2. **Upload a photo** or **CCTV frame**.
-3. **Instantly matches** faces with the missing persons' database. Currently, our custom dataset consists of **20+** entries only; planning to increase it later on. 
-4. **Quick and accurate** results, helping authorities move faster.
-
-## Benefits
-
-- **Speed**: No more manual searching, results are almost instant.
-- **Accuracy**: Leveraging **Amazon Rekognition** for face matching ensures reliable results.
-- **User-Friendly**: Simple interface for citizens and quick integration for authorities.
-
-## Impact
-
-By speeding up the process of identifying missing persons, this project **helps families reunite**, providing both **emotional** and **social value**. It empowers authorities to act swiftly, improving the chances of finding a missing person.
+---
 
 ## How It Works
 
-1. **Image Upload**: Users can upload an image (photo or CCTV frame).
-2. **Face Recognition**: The uploaded image is processed by **Amazon Rekognition**.
-3. **Instant Results**: The system checks for matches against the missing persons' database and provides fast results.
+1. **Image Upload**: User uploads a photo and fills out the enhanced form.
+2. **Face Matching**: Rekognition compares the face with the missing persons dataset.
+3. **Results**: Matches (or no matches) returned instantly.
+4. **Formspree**: Metadata is stored for further analysis.
 
-## Technical Depth
+---
 
-- **AWS Lambda**: Serverless functions that handle image processing and API logic.
-- **Amazon Rekognition**: Uses AI to match faces to the missing persons' database.
-- **API Gateway**: Connects frontend to backend through REST APIs.
-- **Amazon S3**: Stores uploaded images and feedback securely.
+## Project Flow
 
-## Installation and Setup
+### Old Method:
+- Open website
+- Manually search using filters
+- Visually compare entries
+
+### New Method:
+1. **Login/Signup** with validation & forgot password options
+2. **Fill the enhanced form** with contextual fields
+3. **Upload a photo**
+4. **Instant result** via Rekognition
+5. **Formspree stores details** for backend processing
+
+---
+
+## Testing & Validation
+
+- **AWS Lambda** tested with base64 image payloads and test events.
+- **Postman** used to verify deployed API endpoints with JSON inputs.
+- 📹 **Video Demo** available showing the updated upload form in action : https://youtu.be/kIx9YpGx90E .
+
+---
+
+## Installation & Setup
 
 ### Prerequisites:
-- AWS Account with access to **Amazon Rekognition**, **API Gateway**, and **Lambda**.
-- Static website hosting set up on **S3** or deploy via **Vercel/Netlify**.
+- AWS Account with access to **Lambda**, **Rekognition**, **API Gateway**, **S3**
+- **Formspree** account for form data storage
 
-### Steps:
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/Soumilgit/Real-Time-Incident-Reporting-and-Analysis-with-Face-Recognition.git
-    ```
+### Setup Steps:
+
+```bash
+git clone https://github.com/Soumilgit/Real-Time-Missing-Persons-Detection.git
+  ```
 
 2. **Set up AWS services**:
    - Create an **S3 bucket** for storing images and feedback.
@@ -111,7 +114,7 @@ By speeding up the process of identifying missing persons, this project **helps 
    - Upload HTML, CSS, JS files to S3 or use Vercel/Netlify for deployment.
 
 4. **Test the system**:
-   - Upload an image and make sure the face recognition provides accurate results.
+   - Upload an image, fill additional form details and make sure the face recognition provides accurate results.
 
 ## Scalability
 
