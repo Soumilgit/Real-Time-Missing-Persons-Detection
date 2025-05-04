@@ -10,7 +10,7 @@ function logout() {
   window.location.href = 'login.html';
 }
 
-// Form validation functions (unchanged)
+// Form validation functions
 function validateImage() {
   const input = document.getElementById('imageInput');
   const errorElement = document.getElementById('imageError');
@@ -76,15 +76,23 @@ function validatePhone() {
   const input = document.getElementById('reporterPhone');
   const errorElement = document.getElementById('phoneError');
   
-  if (input.value && !/^9[0-9]{9}$/.test(input.value)) {
+  // Phone is now required, so empty check first
+  if (!input.value || input.value.trim() === '') {
+    errorElement.textContent = 'Phone number is required';
     errorElement.classList.remove('hidden');
     return false;
-  } else {
-    errorElement.classList.add('hidden');
-    return true;
   }
+  
+  // Then check format
+  if (!/^9[0-9]{9}$/.test(input.value)) {
+    errorElement.textContent = 'Please enter a valid 10-digit phone number starting with 9';
+    errorElement.classList.remove('hidden');
+    return false;
+  }
+  
+  errorElement.classList.add('hidden');
+  return true;
 }
-
 
 function validateLocation() {
   const input = document.getElementById('location');
@@ -121,39 +129,83 @@ function validateDate() {
   return true;
 }
 
+function validateAdditionalDetails() {
+  const input = document.getElementById('additionalDetails');
+  const errorElement = document.getElementById('additionalDetailsError');
+  
+  if (input.value.trim().length === 0) {
+    errorElement.classList.remove('hidden');
+    return false;
+  }
+  
+  errorElement.classList.add('hidden');
+  return true;
+}
+
 function validateForm() {
+  const isImageValid = validateImage();
   const isNameValid = validateName();
   const isPhoneValid = validatePhone();
   const isLocationValid = validateLocation();
   const isDateValid = validateDate();
+  const isAdditionalDetailsValid = validateAdditionalDetails();
   
-  // Only validate email if it's not empty
   const emailInput = document.getElementById('reporterEmail');
   const isEmailValid = emailInput.value.trim() === '' || validateEmail();
   
-  return isNameValid && isEmailValid && isPhoneValid && 
-         isLocationValid && isDateValid;
+  return isImageValid && isNameValid && isPhoneValid && isEmailValid && 
+         isLocationValid && isDateValid && isAdditionalDetailsValid;
 }
-// Event listeners for real-time validation
-document.getElementById('reporterName').addEventListener('input', validateName);
-document.getElementById('reporterEmail').addEventListener('input', function() {
-  const input = document.getElementById('reporterEmail');
-  const errorElement = document.getElementById('emailError');
-  
-  // Clear error if field is empty
-  if (input.value.trim() === '') {
-    errorElement.classList.add('hidden');
-    return;
-  }
-  
-  // Otherwise validate normally
-  validateEmail();
-});
-document.getElementById('reporterPhone').addEventListener('input', validatePhone);
-document.getElementById('location').addEventListener('input', validateLocation);
-document.getElementById('dateSeen').addEventListener('change', validateDate);
 
-// Form submission handler - modified to not include file upload
+// Function to update button states
+function updateButtonStates() {
+  const isValid = validateForm();
+  const analyzeBtn = document.querySelector('button[onclick="analyzeImage()"]');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  analyzeBtn.disabled = !isValid;
+  submitBtn.disabled = !isValid;
+  
+  if (isValid) {
+    analyzeBtn.classList.remove('opacity-50');
+    submitBtn.classList.remove('opacity-50');
+  } else {
+    analyzeBtn.classList.add('opacity-50');
+    submitBtn.classList.add('opacity-50');
+  }
+}
+
+// Event listeners for real-time validation
+document.getElementById('imageInput').addEventListener('change', function() {
+  previewImage();
+  updateButtonStates();
+});
+document.getElementById('reporterName').addEventListener('input', function() {
+  validateName();
+  updateButtonStates();
+});
+document.getElementById('reporterEmail').addEventListener('input', function() {
+  validateEmail();
+  updateButtonStates();
+});
+document.getElementById('reporterPhone').addEventListener('input', function() {
+  validatePhone();
+  updateButtonStates();
+});
+document.getElementById('location').addEventListener('input', function() {
+  validateLocation();
+  updateButtonStates();
+});
+document.getElementById('dateSeen').addEventListener('change', function() {
+  validateDate();
+  updateButtonStates();
+});
+document.getElementById('additionalDetails').addEventListener('input', function() {
+  validateAdditionalDetails();
+  updateButtonStates();
+});
+
+// Form submission handler
 document.getElementById('uploadForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   
@@ -216,7 +268,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
   }
 });
 
-// Image preview and analysis functions (unchanged)
+// Image preview and analysis functions
 function previewImage() {
   const input = document.getElementById('imageInput');
   const preview = document.getElementById('preview');
@@ -238,8 +290,8 @@ function previewImage() {
 async function analyzeImage() {
   const resultDiv = document.getElementById('result');
   
-  if (!validateImage()) {
-    resultDiv.innerHTML = '<p class="text-red-500 bg-red-100 p-2 rounded">Please upload a valid image first.</p>';
+  if (!validateForm()) {
+    resultDiv.innerHTML = '<p class="text-red-500 bg-red-100 p-2 rounded">Please fill all required fields first.</p>';
     return;
   }
   
@@ -287,3 +339,8 @@ async function analyzeImage() {
   
   reader.readAsDataURL(input.files[0]);
 }
+
+// Initialize button states on page load
+document.addEventListener('DOMContentLoaded', function() {
+  updateButtonStates();
+});
