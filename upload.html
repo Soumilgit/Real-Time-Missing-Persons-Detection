@@ -6,6 +6,20 @@
   <title>Upload Image | Missing Person Finder</title>
   <meta name="description" content="Upload a missing person's photo and search through our AI-driven database.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+  </style>
 </head>
 <body class="bg-gradient-to-b from-purple-900 to-purple-400 min-h-screen flex flex-col">
 
@@ -75,14 +89,16 @@
           <input type="tel" id="reporterPhone" name="reporterPhone" 
                  class="border p-2 rounded w-full"
                  pattern="9[0-9]{9}" required>
-          <div id="phoneError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid phone number (10 digits starting with 9)</div>
-        </div>        
+          <div id="phoneError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid 10-digit phone number starting with 9</div>
+        </div>      
         
         <!-- Location Information -->
         <div>
           <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where was this person seen? (Location) *</label>
-          <input type="text" id="location" name="location" 
-                 class="border p-2 rounded w-full" required minlength="5">
+          <div class="flex gap-0">
+            <input type="text" id="location" name="location" 
+                   class="border p-2 rounded flex-1" required minlength="5">
+          </div>
           <div id="locationError" class="text-red-500 text-sm mt-1 hidden">Please provide a valid location</div>
         </div>
         
@@ -95,9 +111,10 @@
         
         <!-- Additional Details -->
         <div>
-          <label for="additionalDetails" class="block text-sm font-medium text-gray-700 mb-1">Additional Details</label>
+          <label for="additionalDetails" class="block text-sm font-medium text-gray-700 mb-1">Additional Details *</label>
           <textarea id="additionalDetails" name="additionalDetails" rows="3" 
-                    class="border p-2 rounded w-full" maxlength="500"></textarea>
+                    class="border p-2 rounded w-full" required maxlength="500"></textarea>
+          <div id="additionalDetailsError" class="text-red-500 text-sm mt-1 hidden">Please provide additional details</div>
           <div class="text-xs text-gray-500 mt-1">Max 500 characters</div>
         </div>
         
