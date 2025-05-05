@@ -13,7 +13,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 - **Real-Time Face Matching**: Upload an image or CCTV snapshot to get instant results via **Amazon Rekognition**.
 - **Enhanced Upload Form** *(NEW)*: Collects detailed information like time, location, and description to aid in analysis.
 - **Fast & Accurate**: Eliminates manual search with AI-powered facial comparison.
-- **Serverless Architecture**: Scales seamlessly using **AWS Lambda**, **API Gateway**, and **S3**.
+- **Serverless Architecture**: Scales seamlessly using **AWS Lambda**, **API Gateway**,  **S3**, **CloudFront** and **Route 53**.
 
 ---
 
@@ -62,6 +62,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 - **Amazon Rekognition** for facial matching
 - **Amazon API Gateway** for REST API endpoints
 - **Amazon S3** for storing images and results
+- **CloudFront** & **Route 53** for secure deployment.
 - **Formspree** for handling form submissions with added fields
 
 ---
