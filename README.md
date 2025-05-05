@@ -103,8 +103,8 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 ## Installation & Setup
 
 ### Prerequisites:
-- AWS Account with access to **Lambda**, **Rekognition**, **API Gateway**, **S3**
-- **Formspree** account for form data storage
+- AWS Account with access to **Lambda**, **Rekognition**, **API Gateway**, **S3**, **CloudFront** & **Route 53** .
+- **Formspree** account for form data storage .
 
 ### Setup Steps:
 
