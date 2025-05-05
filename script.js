@@ -93,7 +93,6 @@ function validatePhone() {
   errorElement.classList.add('hidden');
   return true;
 }
-
 function validateLocation() {
   const input = document.getElementById('location');
   const errorElement = document.getElementById('locationError');
@@ -106,6 +105,91 @@ function validateLocation() {
   errorElement.classList.add('hidden');
   return true;
 }
+
+// Geolocation functions
+function getLocation() {
+  const locationInput = document.getElementById('location');
+  const locationError = document.getElementById('locationError');
+  const getLocationBtn = document.getElementById('getLocationBtn');
+  
+  if (!navigator.geolocation) {
+    locationError.textContent = 'Geolocation is not supported by your browser';
+    locationError.classList.remove('hidden');
+    return;
+  }
+
+  // Show loading state
+  getLocationBtn.innerHTML = `
+    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+  `;
+  getLocationBtn.disabled = true;
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      try {
+        // Reverse geocoding to get address from coordinates
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+        const data = await response.json();
+        
+        let locationText = '';
+        if (data.address) {
+          // Construct address from available components
+          const addressParts = [];
+          if (data.address.road) addressParts.push(data.address.road);
+          if (data.address.suburb) addressParts.push(data.address.suburb);
+          if (data.address.city) addressParts.push(data.address.city);
+          if (data.address.state) addressParts.push(data.address.state);
+          if (data.address.country) addressParts.push(data.address.country);
+          
+          locationText = addressParts.join(', ');
+        } else {
+          // Fallback to coordinates if no address found
+          locationText = `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
+        }
+        
+        locationInput.value = locationText;
+        validateLocation();
+        updateButtonStates();
+      } catch (error) {
+        console.error('Geocoding error:', error);
+        // Fallback to just showing coordinates
+        locationInput.value = `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
+        validateLocation();
+        updateButtonStates();
+      }
+      
+      // Reset button
+      resetLocationButton();
+    },
+    (error) => {
+      console.error('Geolocation error:', error);
+      locationError.textContent = 'Unable to retrieve your location: ' + error.message;
+      locationError.classList.remove('hidden');
+      resetLocationButton();
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
+}
+
+function resetLocationButton() {
+  const getLocationBtn = document.getElementById('getLocationBtn');
+  getLocationBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+    </svg>
+  `;
+  getLocationBtn.disabled = false;
+}
+
+// Add event listener for the geolocation button
+document.getElementById('getLocationBtn').addEventListener('click', getLocation);
 
 function validateDate() {
   const input = document.getElementById('dateSeen');
@@ -145,7 +229,7 @@ function validateAdditionalDetails() {
 function validateForm() {
   const isImageValid = validateImage();
   const isNameValid = validateName();
-  const isPhoneValid = validatePhone();
+  const isPhoneValid = validatePhone(); // This is now strictly required
   const isLocationValid = validateLocation();
   const isDateValid = validateDate();
   const isAdditionalDetailsValid = validateAdditionalDetails();
@@ -343,4 +427,4 @@ async function analyzeImage() {
 // Initialize button states on page load
 document.addEventListener('DOMContentLoaded', function() {
   updateButtonStates();
-});
+}); 
