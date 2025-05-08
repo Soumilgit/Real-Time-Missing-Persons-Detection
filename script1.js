@@ -1,3 +1,5 @@
+
+
 let currentSlide = 0;
     const totalSlides = document.querySelectorAll("#carousel > div").length;
 
@@ -15,8 +17,27 @@ let currentSlide = 0;
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       showSlide();
     }
-function logout() {
-        // Clear session (example: you can expand later if using auth)
-        localStorage.removeItem('loggedIn');
-        window.location.href = 'login.html'; // Redirect to login page
+    function logout() {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html';
+    }
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!localStorage.getItem('loggedIn')) {
+        window.location.href = 'login.html';
       }
+    
+      const navbar = document.getElementById('navbar');
+      const logoutBtn = document.createElement('button');
+      logoutBtn.textContent = 'Logout';
+      logoutBtn.className = 'hover:text-green-600';
+      logoutBtn.onclick = logout;
+      navbar.appendChild(logoutBtn);
+    
+      const mobileLogout = document.getElementById('mobileLogout');
+      if (mobileLogout) {
+        mobileLogout.classList.remove('hidden');
+        mobileLogout.onclick = logout;
+      }
+    });
+      
