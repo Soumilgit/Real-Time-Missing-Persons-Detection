@@ -1,14 +1,37 @@
-document.getElementById('hamburger').addEventListener('click', function() {
-  document.getElementById('mobileMenu').classList.toggle('hidden');
-});
-document.getElementById('closeMenu').addEventListener('click', function() {
-  document.getElementById('mobileMenu').classList.add('hidden');
-});
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
 
-function logout() {
-  localStorage.removeItem('loggedIn');
-  window.location.href = 'login.html';
-}
+  document.getElementById('closeMenu').addEventListener('click', function () {
+    document.getElementById('mobileMenu').classList.add('hidden');
+  });
+
+  function logout() {
+    localStorage.removeItem('loggedIn');
+    window.location.href = 'login.html';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Redirect if not logged in
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html';
+    }
+
+    // Inject Logout button in navbar
+    const navbar = document.getElementById('navbar');
+    const logoutBtn = document.createElement('button');
+    logoutBtn.textContent = 'Logout';
+    logoutBtn.className = 'hover:text-purple-600';
+    logoutBtn.onclick = logout;
+    navbar.appendChild(logoutBtn);
+
+    // Mobile logout
+    const mobileLogout = document.getElementById('mobileLogout');
+    if (mobileLogout) {
+      mobileLogout.classList.remove('hidden');
+      mobileLogout.onclick = logout;
+    }
+  });
 
 // Form validation functions
 function validateImage() {
@@ -427,4 +450,11 @@ async function analyzeImage() {
 // Initialize button states on page load
 document.addEventListener('DOMContentLoaded', function() {
   updateButtonStates();
+
+  window.onload = function () {
+    if (!localStorage.getItem('loggedIn') && !window.location.href.includes('login.html')) {
+      window.location.href = 'login.html';
+    }
+  };
+  
 }); 
