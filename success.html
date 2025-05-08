@@ -6,6 +6,12 @@
   <title>Dataset Entries | Missing Person Finder</title>
   <meta name="description" content="Meet the individuals we are working to reunite with their families.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  
 </head>
 <body class="bg-gradient-to-b from-green-900 to-green-400 min-h-screen flex flex-col">
 
@@ -28,7 +34,8 @@
       <a href="upload.html" class="hover:text-green-600">Upload</a>
       <a href="success.html" class="hover:text-green-600">Dataset Entries</a>
       <a href="feedback.html" class="hover:text-green-600">Feedback</a>
-      <button onclick="logout()" class="hover:text-green-600">Logout</button>
+      <!-- Logout will be added dynamically -->
+      
     </div>
   </nav>
 
@@ -39,7 +46,7 @@
       <a href="upload.html" class="text-xl text-green-800">Upload</a>
       <a href="success.html" class="text-xl text-green-800">Dataset Entries</a>
       <a href="feedback.html" class="text-xl text-green-800">Feedback</a>
-      <button onclick="logout()" class="text-xl text-green-800">Logout</button>
+      <button id="mobileLogout" class="text-xl text-green-800 hidden">Logout</button>
       <button id="closeMenu" class="text-xl text-green-800">Close</button>
     </div>
   </div>
@@ -121,6 +128,7 @@
         <div class="flex-shrink-0 w-full p-8 text-center">
           <img src="images/U_S.jpg" alt="Missing Person" class="mx-auto rounded-lg w-48 h-60 object-cover filter blur-md">
         </div>
+        <!-- End of Entries -->
       </div>
     </div>
 
