@@ -28,7 +28,7 @@
       <a href="upload.html" class="hover:text-blue-600">Upload</a>
       <a href="success.html" class="hover:text-blue-600">Dataset Entries</a>
       <a href="feedback.html" class="hover:text-blue-600">Feedback</a>
-      <button onclick="logout()" class="hover:text-blue-600">Logout</button>
+      <!-- Login/Logout button will be injected dynamically -->
     </div>
   </nav>
 
@@ -39,26 +39,51 @@
       <a href="upload.html" class="text-xl text-blue-800">Upload</a>
       <a href="success.html" class="text-xl text-blue-800">Dataset Entries</a>
       <a href="feedback.html" class="text-xl text-blue-800">Feedback</a>
-      <button onclick="logout()" class="text-xl text-blue-800">Logout</button>
+      <!-- Login/Logout button will be injected dynamically -->
       <button id="closeMenu" class="text-xl text-blue-800">Close</button>
     </div>
   </div>
 
   <script>
-    document.getElementById('hamburger').addEventListener('click', function() {
+    function isLoggedIn() {
+      return localStorage.getItem('loggedIn') === 'true';
+    }
+  
+    function logout() {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html';
+    }
+  
+    // Navbar button toggle
+    document.addEventListener("DOMContentLoaded", () => {
+      const navbar = document.getElementById('navbar');
+      if (navbar) {
+        const loginBtn = document.createElement('a');
+        loginBtn.className = "hover:text-blue-600";
+  
+        if (isLoggedIn()) {
+          const logoutButton = document.createElement('button');
+          logoutButton.textContent = "Logout";
+          logoutButton.onclick = logout;
+          logoutButton.className = "hover:text-blue-600";
+          navbar.appendChild(logoutButton);
+        } else {
+          loginBtn.href = "login.html";
+          loginBtn.textContent = "Login";
+          navbar.appendChild(loginBtn);
+        }
+      }
+    });
+  
+    // Mobile menu toggle (same as before)
+    document.getElementById('hamburger').addEventListener('click', () => {
       document.getElementById('mobileMenu').classList.toggle('hidden');
     });
-
-    document.getElementById('closeMenu').addEventListener('click', function() {
+    document.getElementById('closeMenu').addEventListener('click', () => {
       document.getElementById('mobileMenu').classList.add('hidden');
     });
-
-    function logout() {
-      // Clear session (example: you can expand later if using auth)
-      localStorage.removeItem('loggedIn');
-      window.location.href = 'login.html'; // Redirect to login page
-    }
   </script>
+  
 
   <section class="flex flex-col items-center justify-center flex-1 text-center p-8">
     <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">AI-Powered Missing Person Identifier</h1>
