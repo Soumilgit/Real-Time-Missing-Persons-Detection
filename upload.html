@@ -6,6 +6,12 @@
   <title>Upload Image | Missing Person Finder</title>
   <meta name="description" content="Upload a missing person's photo and search through our AI-driven database.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  
   <style>
     .animate-spin {
   animation: spin 1s linear infinite;
@@ -38,7 +44,7 @@
       <a href="upload.html" class="hover:text-purple-600">Upload</a>
       <a href="success.html" class="hover:text-purple-600">Dataset Entries</a>
       <a href="feedback.html" class="hover:text-purple-600">Feedback</a>
-      <button onclick="logout()" class="hover:text-purple-600">Logout</button>
+      <!-- Logout will be added dynamically -->
     </div>
   </nav>
 
@@ -49,7 +55,9 @@
       <a href="upload.html" class="text-xl text-purple-800">Upload</a>
       <a href="success.html" class="text-xl text-purple-800">Dataset Entries</a>
       <a href="feedback.html" class="text-xl text-purple-800">Feedback</a>
-      <button onclick="logout()" class="text-xl text-purple-800">Logout</button>
+      <button id="mobileLogout" class="text-xl text-purple-800 hidden">Logout</button>
+
+      
       <button id="closeMenu" class="text-xl text-purple-800">Close</button>
     </div>
   </div>
