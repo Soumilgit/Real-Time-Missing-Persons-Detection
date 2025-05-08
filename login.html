@@ -77,42 +77,49 @@
   </div>
 
   <script>
-    const passwordInput = document.getElementById('password');
-    const togglePassword = document.getElementById('togglePassword');
-    const eyeIcon = document.getElementById('eyeIcon');
-    const eyeOutline = document.getElementById('eyeOutline');
-    let passwordVisible = false;
+  const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+  const eyeIcon = document.getElementById('eyeIcon');
+  const eyeOutline = document.getElementById('eyeOutline');
+  let passwordVisible = false;
 
-    togglePassword.addEventListener('click', function () {
-      passwordVisible = !passwordVisible;
-      passwordInput.type = passwordVisible ? 'text' : 'password';
+  togglePassword.addEventListener('click', function () {
+    passwordVisible = !passwordVisible;
+    passwordInput.type = passwordVisible ? 'text' : 'password';
 
-      if (passwordVisible) {
-        // Eye off
-        eyeIcon.setAttribute("d", "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.967 9.967 0 013.356-4.472m3.234-2.157A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.962 9.962 0 01-1.357 2.572");
-        eyeOutline.setAttribute("d", "M3 3l18 18");
+    if (passwordVisible) {
+      // Eye off
+      eyeIcon.setAttribute("d", "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.967 9.967 0 013.356-4.472m3.234-2.157A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.962 9.962 0 01-1.357 2.572");
+      eyeOutline.setAttribute("d", "M3 3l18 18");
+    } else {
+      // Eye normal
+      eyeIcon.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z");
+      eyeOutline.setAttribute("d", "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z");
+    }
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const storedPassword = localStorage.getItem('userPassword');
+    const enteredPassword = passwordInput.value;
+
+    if (enteredPassword === storedPassword) {
+      localStorage.setItem('loggedIn', 'true');
+      alert('Login successful!');
+      window.location.href = 'index.html'; 
+    } else {
+      const shouldReset = confirm("Incorrect Password! Would you like to reset your password?");
+      if (shouldReset) {
+        window.location.href = 'forgot.html';
       } else {
-        // Eye normal
-        eyeIcon.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z");
-        eyeOutline.setAttribute("d", "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z");
+        const goToSignup = confirm("Don't have an account? Do you want to sign up?");
+        if (goToSignup) {
+          window.location.href = 'signup.html';
+        }
       }
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const storedPassword = localStorage.getItem('userPassword');
-      const enteredPassword = passwordInput.value;
-
-      if (enteredPassword === storedPassword) {
-        localStorage.setItem('loggedIn', 'true');
-        alert('Login successful!');
-        window.location.href = 'index.html'; 
-      } else {
-        alert('Incorrect Password! Please try again.');
-      }
-    });
+    }
+  });
   </script>
-
 </body>
 </html>
