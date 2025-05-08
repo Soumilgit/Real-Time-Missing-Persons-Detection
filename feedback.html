@@ -6,6 +6,12 @@
   <title>Feedback | Missing Person Finder</title>
   <meta name="description" content="Share your feedback to help us improve and reunite more families.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Redirect if not logged in
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body class="bg-gradient-to-b from-yellow-900 to-yellow-400 min-h-screen flex flex-col">
   
@@ -22,45 +28,27 @@
       </button>
     </div>
 
-    <!-- Navbar Links (hidden on mobile) -->
+    <!-- Navbar Links -->
     <div id="navbar" class="hidden lg:flex gap-10">
       <a href="index.html" class="hover:text-yellow-600">Home</a>
       <a href="upload.html" class="hover:text-yellow-600">Upload</a>
       <a href="success.html" class="hover:text-yellow-600">Dataset Entries</a>
       <a href="feedback.html" class="hover:text-yellow-600">Feedback</a>
-      <button onclick="logout()" class="hover:text-yellow-600">Logout</button>
+      <!-- Logout/Login will be appended dynamically -->
     </div>
   </nav>
 
-  <!-- Mobile Menu (hidden by default) -->
+  <!-- Mobile Menu -->
   <div id="mobileMenu" class="lg:hidden fixed inset-0 bg-white bg-opacity-90 flex justify-center items-center z-50 hidden">
     <div class="flex flex-col items-center gap-4">
       <a href="index.html" class="text-xl text-yellow-800">Home</a>
       <a href="upload.html" class="text-xl text-yellow-800">Upload</a>
       <a href="success.html" class="text-xl text-yellow-800">Dataset Entries</a>
       <a href="feedback.html" class="text-xl text-yellow-800">Feedback</a>
-      <button onclick="logout()" class="text-xl text-yellow-800">Logout</button>
+      <button id="mobileLogoutBtn" class="text-xl text-yellow-800 hidden">Logout</button>
       <button id="closeMenu" class="text-xl text-yellow-800">Close</button>
     </div>
   </div>
-
-  <script>
-    // Toggle mobile menu visibility
-    document.getElementById('hamburger').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
-    });
-
-    // Close mobile menu when clicking 'Close'
-    document.getElementById('closeMenu').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.add('hidden');
-    });
-
-    function logout() {
-      // Clear session (example: you can expand later if using auth)
-      localStorage.removeItem('loggedIn');
-      window.location.href = 'login.html'; // Redirect to login page
-    }
-  </script>
 
   <!-- Feedback Form Section -->
   <section class="flex-1 flex flex-col items-center justify-center p-8">
@@ -78,17 +66,56 @@
   </section>
 
   <script>
+    // Mobile menu toggling
+    document.getElementById('hamburger').addEventListener('click', function () {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    document.getElementById('closeMenu').addEventListener('click', function () {
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+
+    // Dynamic logout/login
+    function isLoggedIn() {
+      return localStorage.getItem('loggedIn') === 'true';
+    }
+
+    function logout() {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbar = document.getElementById('navbar');
+      const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+      if (isLoggedIn()) {
+        // Desktop logout
+        const logoutBtn = document.createElement('button');
+        logoutBtn.textContent = 'Logout';
+        logoutBtn.className = 'hover:text-yellow-600';
+        logoutBtn.onclick = logout;
+        navbar.appendChild(logoutBtn);
+
+        // Mobile logout
+        mobileLogoutBtn.classList.remove('hidden');
+        mobileLogoutBtn.onclick = logout;
+      } else {
+        // Fallback (not expected here)
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Feedback form handler
     const form = document.getElementById('feedbackForm');
     const submitButton = document.getElementById('submitButton');
 
-    form.addEventListener('submit', async function(event) {
+    form.addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      // Gather form data
       const formData = new FormData(form);
 
       try {
-        // Send form data using Fetch API to Formspree
         const response = await fetch('https://formspree.io/f/mqaqperv', {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
@@ -96,19 +123,16 @@
         });
 
         if (response.ok) {
-          // Change button color and text
           submitButton.classList.remove('bg-yellow-600', 'hover:bg-yellow-700');
           submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
           submitButton.textContent = 'Submitted';
 
-          // Reset the button back to its original state after 5 seconds
           setTimeout(() => {
             submitButton.classList.remove('bg-green-600', 'hover:bg-green-700');
             submitButton.classList.add('bg-yellow-600', 'hover:bg-yellow-700');
             submitButton.textContent = 'Submit Feedback';
           }, 3000);
 
-          // Clear form fields
           form.reset();
         } else {
           alert('Something went wrong. Please try again.');
