@@ -41,6 +41,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 ### Upload Form Enhancements:
 - Added fields: **Location**, **Date & time**, **Name**, **Email**, **Phone**, **Additional Details**, etc.
 - Data stored securely via **Formspree** for later analysis by investigators.
+- Usage of **CloudFront** & **Route 53** services for secure deployment.
 
 ---
 
