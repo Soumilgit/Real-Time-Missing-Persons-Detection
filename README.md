@@ -1,6 +1,6 @@
 # Real-Time Missing Persons Detection
 ## AWS Architecture
-![image](https://github.com/user-attachments/assets/e12f7aeb-2eba-4a65-b67f-98251e37f0aa)
+![image](https://github.com/user-attachments/assets/168b0638-4e1a-4186-aa71-9560be5f521c)
 
 ## Overview
 
