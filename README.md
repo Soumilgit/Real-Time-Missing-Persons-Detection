@@ -136,3 +136,6 @@ This project is designed to grow:
 ## Conclusion
 
 This project **automates the search** for missing persons using real-time face recognition. It provides a **fast**, **accurate**, and **scalable** solution that can be a game-changer in helping authorities identify missing people and reunite families.
+
+## License
+This project is licensed under the ![MIT License](https://github.com/Soumilgit/Real-Time-Missing-Persons-Detection/blob/main/LICENSE) .
