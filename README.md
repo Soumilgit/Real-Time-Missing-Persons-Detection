@@ -19,7 +19,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 
 ---
 
-## AWS Rekognition Image for Documentation – Terminal Output for One Dataset Entry
+## AWS Rekognition Terminal Output – Single Dataset Entry
 ![Screenshot 2025-04-27 040306](https://github.com/user-attachments/assets/9ed439e2-eff7-4957-8cc1-b997add07c0c)
 ![Screenshot 2025-04-27 040316](https://github.com/user-attachments/assets/71469c60-ced0-4bac-a2b9-61e2603cd2eb)
 
@@ -63,7 +63,7 @@ The goal is to **automate face-matching**, reducing delays and human error, enab
 ### Backend:
 - **AWS Lambda (Python)** for processing logic
 - **Amazon Rekognition** for facial matching
-- **Amazon API Gateway** for REST API endpoints
+- **Amazon API Gateway** for custom REST API endpoints
 - **Amazon S3** for storing images and results
 - **CloudFront** & **Route 53** for secure deployment.
 - **Formspree** for handling form submissions with added fields
